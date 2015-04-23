@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>test</title>
+        <meta charset="utf-8">
+                <script>
+                    function getInfo(name)
+                    {
+                        if(name == "writeData"){
+                            window.location = "/postman://writeData?id=1314&data=[问鼎云学习]&fn=fnCallBack";
+                        }else if(name == "readData"){
+                            window.location = "/postman://readData?id=1314&fn=fnCallBack";
+                        }else if(name == "delData"){
+                            window.location = "/postman://delData?id=1314&fn=fnCallBack";
+                        }
+                    }
+                
+                    function fnCallBack(type,data,returnMsg)
+                    {
+                        var div = document.createElement("div");
+
+                        if (type == "writeData") {
+                            if(returnMsg == 1){
+                                div.innerHTML = "<h4>保存数据 " + "<font color=" + "red" + ">" + data + "</font>" + " 成功！";
+                            }else if(returnMsg == 0){
+                                div.innerHTML = "<h4>保存数据 " + "<font color=" + "red" + ">" + data + "</font>" + " 失败！";
+                            }
+                        }else if (type == "delData") {
+                            if(returnMsg == 1){
+                                div.innerHTML = "<h4>" + "<font color=" + "red" + ">删除数据成功" + "</font>"
+                            }else if(returnMsg == 0){
+                                div.innerHTML = "<h4>" + "<font color=" + "red" + ">删除数据失败" + "</font>"
+                            }
+                        }else if (type == "readData") {
+                            div.innerHTML = "<h4>读取数据 " + "<font color=" + "red" + ">" + data + "</font>";
+                        }
+                        document.body.appendChild(div);
+                    }
+                
+                    function excuteDriverSensor(device_type)
+                    {
+                        window.location = "/postman://driverSensor?device="+device_type+"&fn=dsCallBack";
+                    }
+                   //调用移动设备
+                    function dsCallBack(device_type,returnData)
+                    {
+                        var div = document.createElement("div");
+
+                        if (device_type == "photo") {
+                            div.innerHTML = "<h7>图片地址:" + "<font color=" + "red" + ">" + returnData + "</font>";
+                        }else if (device_type == "video") {
+                            div.innerHTML = "<h7>录像地址:" + "<font color=" + "red" + ">" + returnData + "</font>";
+                        }else if (device_type == "audio") {
+                            div.innerHTML = "<h7>音频地址:" + "<font color=" + "red" + ">" + returnData + "</font>";
+                        }
+                       document.body.appendChild(div);
+                    }
+
+                    function sdCallBack()
+                    {
+                        //摇一摇
+                        var div = document.createElement("div");
+                        div.innerHTML = "<h4>" + "<font color=" + "red" + ">检测到摇一摇操作" + "</font>";
+                        document.body.appendChild(div);
+
+                    }
+                </script>
+    </head>
+    <body>
+                <h2>IOStoH5</h2>
+                    <h3><a href="javascript:getInfo('writeData')">保存数据到本地</a>
+                    <h3><a href="javascript:getInfo('readData')">从本地读取数据</a>
+                    <h3><a href="javascript:getInfo('delData')">删除本地数据</a>
+                    <h3><a href="javascript:excuteDriverSensor('photo')">调用移动设备>>拍照</a>
+                    <h3><a href="javascript:excuteDriverSensor('video')">调用移动设备>>录像</a>
+                    <h3><a href="javascript:excuteDriverSensor('audio')">调用移动设备>>录音</a>
+                    <h3><a href="javascript:excuteDriverSensor('shake')">调用移动设备>>震动</a>
+                    <h3>摇一摇
+
+    </body>
+</html>
